@@ -1,0 +1,32 @@
+<div style="margin-top: 40px; margin-left: 25%;height: 500px;">
+
+    <table class="table">
+<?php
+// die($this->baseUrl());
+foreach ($this->links as $value) {
+    ?>
+        <tr>
+            <td>
+                <?php echo $value['rss_path'] ; ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->baseUrl();?>/feeds/edit/id/<?php echo $value['id']?>" class="btn btn-default">Edit</a>
+            </td>
+            <td>
+                <a href="<?php echo $this->baseUrl();?>/feeds/delete/id/<?php echo $value['id']?>" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        <?php
+}
+?>
+        </table>
+    
+<?php
+
+    echo $this->form;
+?>
+    <div class="col-lg-6">
+         <span style="color: red"><?php  echo $this->Error;?></span>
+    </div>
+</div>
+ 
