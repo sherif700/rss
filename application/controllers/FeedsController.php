@@ -59,12 +59,22 @@ class FeedsController extends Zend_Controller_Action {
         $feed = $this->model->getFeedById($id);
         $form->populate($feed[0]);
         if ($this->getRequest()->isPost()) {
-
             if ($form->isValid($this->getRequest()->getParams())) {
                 $data = $form->getValues();
-                if ($this->model->editFeed($id, $data)) {
-                    $this->redirect('feeds/add');
+                $ext = (new SplFileInfo($data['rss_path']))->getExtension();
+                if ($ext != '' && $ext == 'rss') {
+                    if ($this->model->editFeed($id, $data)) {
+                        $this->redirect('feeds/add');
+                    }
+                } else {
+                    $this->view->Error = "plz enter .rss link";
                 }
+
+
+                // $data = $form->getValues();
+                // if ($this->model->editFeed($id, $data)) {
+                //     $this->redirect('feeds/add');
+                // }
             }
         }
         $this->view->form = $form;
